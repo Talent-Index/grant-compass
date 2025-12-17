@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { 
   ArrowRight, 
   Sparkles, 
@@ -13,13 +13,13 @@ import {
   UserCircle,
   Compass,
   Rocket
-} from "lucide-react";
-import { HeroFrame, Frame } from "@/components/layout/Frame";
-import { MotionSection, MotionItem, MotionCard } from "@/components/Motion/MotionSection";
-import { TrustMarquee } from "@/components/TrustMarquee";
-import { HeroVisual } from "@/components/HeroVisual";
-import { Footer } from "@/components/Footer";
-import { fadeUp, staggerContainer, staggerItem, shouldReduceMotion } from "@/lib/motion";
+} from 'lucide-react';
+import { HeroFrame, Frame } from '@/components/layout/Frame';
+import { MotionSection, MotionItem, MotionCard } from '@/components/Motion/MotionSection';
+import { TrustMarquee } from '@/components/TrustMarquee';
+import { HeroVisual } from '@/components/HeroVisual';
+import { Footer } from '@/components/Footer';
+import { shouldReduceMotion } from '@/lib/motion';
 
 const Index = () => {
   const reduceMotion = shouldReduceMotion();
@@ -103,12 +103,12 @@ const Index = () => {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1] tracking-tight">
-              Find & Win Grants
-              <span className="block text-emerald mt-2">Without the Guesswork</span>
+              Hit Your Target
+              <span className="block text-emerald mt-2">Win More Grants</span>
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
-              Grant Spotter uses AI to match you with the right funding, 
+              Grantees uses AI to match you with the right funding, 
               helps you write winning proposals, and guides you every step.
             </p>
 
@@ -161,10 +161,10 @@ const Index = () => {
         <TrustMarquee />
       </Frame>
 
-      {/* Frame B - Why Grant Spotter */}
+      {/* Frame B - Why Grantees */}
       <Frame 
         background="default"
-        eyebrow="Why Grant Spotter"
+        eyebrow="Why Grantees"
         title="Your unfair advantage in grant discovery"
         description="Built for builders who want to focus on building, not bureaucracy."
       >
@@ -239,7 +239,7 @@ const Index = () => {
       <Frame background="accent">
         <MotionSection className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to find your next grant?
+            Ready to hit your target?
           </h2>
           <p className="text-muted-foreground text-lg mb-8">
             Join builders who've discovered funding opportunities 
