@@ -1,3 +1,4 @@
+// Grant card component with match scoring display
 import { Grant, GrantMatch } from '@/types/grant';
 import { ecosystemLabels, nicheLabels } from '@/data/mockGrants';
 import { Badge } from '@/components/ui/badge';

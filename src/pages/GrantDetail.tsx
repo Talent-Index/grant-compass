@@ -1,3 +1,4 @@
+// Grant detail page with eligibility checklist
 import { useParams, Link } from 'react-router-dom';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';

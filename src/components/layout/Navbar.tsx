@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Compass, User, LayoutDashboard } from 'lucide-react';
+// Navigation bar component
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
