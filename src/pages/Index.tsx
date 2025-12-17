@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { 
   ArrowRight, 
   Sparkles, 
@@ -8,239 +9,253 @@ import {
   FileText, 
   TrendingUp,
   CheckCircle2,
-  Zap,
-  Globe,
-  Shield
-} from 'lucide-react';
+  ChevronDown,
+  UserCircle,
+  Compass,
+  Rocket
+} from "lucide-react";
+import { HeroFrame, Frame } from "@/components/layout/Frame";
+import { MotionSection, MotionItem, MotionCard } from "@/components/Motion/MotionSection";
+import { TrustMarquee } from "@/components/TrustMarquee";
+import { HeroVisual } from "@/components/HeroVisual";
+import { Footer } from "@/components/Footer";
+import { fadeUp, staggerContainer, staggerItem, shouldReduceMotion } from "@/lib/motion";
 
 const Index = () => {
-  const features = [
+  const reduceMotion = shouldReduceMotion();
+  const today = new Date().toLocaleDateString("en-US", { 
+    month: "short", 
+    day: "numeric", 
+    year: "numeric" 
+  });
+
+  const benefits = [
     {
+      number: "01",
+      icon: UserCircle,
+      title: "Identify your niche fast",
+      description: "Complete a quick wizard to discover your builder profile and target ecosystems."
+    },
+    {
+      number: "02",
       icon: Target,
-      title: 'Smart Matching',
-      description: 'AI-powered grant recommendations based on your niche, skills, and project maturity.',
+      title: "Eligibility clarity & fit scoring",
+      description: "Understand exactly why each grant matches—or doesn't match—your project."
     },
     {
+      number: "03",
       icon: FileText,
-      title: 'Proposal Assistant',
-      description: 'Generate compelling proposal drafts with AI guidance tailored to each grant.',
+      title: "Proposal copilot & checklists",
+      description: "AI-assisted writing with structured guidance to craft winning applications."
     },
     {
+      number: "04",
       icon: TrendingUp,
-      title: 'Success Analytics',
-      description: 'Learn from rejections with AI feedback and improve your grant success rate.',
+      title: "Tracking & learning loop",
+      description: "Get feedback on rejections and improve your success rate over time."
+    },
+  ];
+
+  const quickActions = [
+    {
+      icon: UserCircle,
+      title: "Complete your Builder Profile",
+      description: "Define your niche, skills, and target ecosystems.",
+      href: "/onboarding",
+      cta: "Start Wizard"
     },
     {
-      icon: Globe,
-      title: 'Global Coverage',
-      description: 'Access grants from Web3 ecosystems and traditional funding sources worldwide.',
+      icon: Compass,
+      title: "Discover grants by ecosystem",
+      description: "Browse grants filtered by blockchain or funding type.",
+      href: "/grants",
+      cta: "Explore Grants"
+    },
+    {
+      icon: Rocket,
+      title: "Get your top matches",
+      description: "See AI-recommended grants tailored to your profile.",
+      href: "/dashboard",
+      cta: "View Matches"
     },
   ];
 
   const stats = [
-    { value: '500+', label: 'Active Grants' },
-    { value: '15+', label: 'Ecosystems' },
-    { value: '70%', label: 'Time Saved' },
-    { value: '$2.5M+', label: 'Matched Funding' },
+    { value: 500, suffix: "+", label: "Active Grants" },
+    { value: 15, suffix: "+", label: "Ecosystems" },
+    { value: 70, suffix: "%", label: "Time Saved" },
+    { value: 2.5, suffix: "M+", label: "Matched Funding", prefix: "$" },
   ];
 
   return (
-    <div className="min-h-screen gradient-hero">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-        </div>
+    <div className="min-h-screen bg-background">
+      {/* Frame A - Hero */}
+      <HeroFrame>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Message */}
+          <MotionSection className="text-center lg:text-left">
+            <div className="flex items-center gap-3 justify-center lg:justify-start mb-6">
+              <Badge variant="outline" className="px-3 py-1 border-emerald/30 bg-emerald/10">
+                <Sparkles className="w-3 h-3 mr-1.5 text-emerald" />
+                <span className="text-emerald text-xs">AI-Powered</span>
+              </Badge>
+              <span className="text-xs text-muted-foreground">Updated: {today}</span>
+            </div>
 
-        <div className="container relative">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="outline" className="mb-6 px-4 py-1.5 border-primary/30 bg-primary/10">
-              <Sparkles className="w-3.5 h-3.5 mr-2 text-primary" />
-              <span className="text-primary">Powered by AI Intelligence</span>
-            </Badge>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1] tracking-tight">
               Find & Win Grants
-              <span className="block text-primary mt-2">Without the Guesswork</span>
+              <span className="block text-emerald mt-2">Without the Guesswork</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-              Grant Spotter uses AI to match you with the right funding opportunities, 
-              helps you write winning proposals, and guides you through every step 
-              of the grant journey.
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
+              Grant Spotter uses AI to match you with the right funding, 
+              helps you write winning proposals, and guides you every step.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
               <Link to="/onboarding">
-                <Button variant="hero" size="xl" className="gap-2 w-full sm:w-auto">
-                  Start Finding Grants
+                <Button variant="hero" size="xl" className="w-full sm:w-auto gap-2 min-h-[56px]">
+                  Get matched to grants
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
               <Link to="/grants">
-                <Button variant="outline" size="xl" className="gap-2 w-full sm:w-auto">
-                  Explore Grants
+                <Button variant="outline" size="xl" className="w-full sm:w-auto gap-2 min-h-[56px]">
+                  Browse opportunities
                 </Button>
               </Link>
             </div>
 
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-primary" />
-                <span>Membership Verified</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-primary" />
-                <span>Instant Matching</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary" />
-                <span>Free to Start</span>
-              </div>
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald" /> Membership verified
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald" /> Free to start
+              </span>
             </div>
+          </MotionSection>
+
+          {/* Right: Visual */}
+          <div className="hidden lg:block">
+            <HeroVisual />
           </div>
         </div>
-      </section>
+
+        {/* Scroll cue */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-muted-foreground"
+          animate={reduceMotion ? {} : { y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <span className="text-xs mb-2">Scroll to explore</span>
+          <ChevronDown className="w-5 h-5" />
+        </motion.div>
+      </HeroFrame>
+
+      {/* Trust Marquee - Frame D */}
+      <Frame background="subtle" noPadding className="py-8 md:py-12">
+        <div className="text-center mb-6">
+          <p className="text-sm text-muted-foreground">Tracking grants from leading ecosystems</p>
+        </div>
+        <TrustMarquee />
+      </Frame>
+
+      {/* Frame B - Why Grant Spotter */}
+      <Frame 
+        background="default"
+        eyebrow="Why Grant Spotter"
+        title="Your unfair advantage in grant discovery"
+        description="Built for builders who want to focus on building, not bureaucracy."
+      >
+        <MotionSection stagger className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {benefits.map((benefit) => (
+            <MotionItem key={benefit.number}>
+              <div className="group relative p-6 rounded-xl bg-card border border-border/50 hover:border-emerald/30 transition-all duration-300 h-full">
+                <span className="absolute -top-3 -left-1 text-6xl font-bold text-emerald/10 select-none">
+                  {benefit.number}
+                </span>
+                <div className="relative">
+                  <benefit.icon className="w-8 h-8 text-emerald mb-4" />
+                  <h3 className="font-semibold mb-2 group-hover:text-emerald transition-colors">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {benefit.description}
+                  </p>
+                </div>
+              </div>
+            </MotionItem>
+          ))}
+        </MotionSection>
+      </Frame>
+
+      {/* Frame C - Quick Action Cards */}
+      <Frame 
+        background="gradient"
+        eyebrow="Get Started"
+        title="Jump right in"
+        description="Three ways to begin your grant journey today."
+      >
+        <MotionSection stagger className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {quickActions.map((action) => (
+            <MotionItem key={action.title}>
+              <Link to={action.href} className="block h-full">
+                <MotionCard 
+                  className="p-6 bg-card border border-border/50 hover:border-emerald/30 transition-all h-full flex flex-col"
+                  hoverEffect
+                >
+                  <action.icon className="w-10 h-10 text-emerald mb-4" />
+                  <h3 className="font-semibold mb-2">{action.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4 flex-grow">
+                    {action.description}
+                  </p>
+                  <Button variant="ghost" className="w-full justify-start p-0 h-auto text-emerald hover:text-emerald hover:bg-transparent">
+                    {action.cta}
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </MotionCard>
+              </Link>
+            </MotionItem>
+          ))}
+        </MotionSection>
+      </Frame>
 
       {/* Stats Section */}
-      <section className="py-12 border-y border-border/50 bg-card/30">
-        <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+      <Frame background="dark" noPadding className="py-12 md:py-16">
+        <MotionSection stagger className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map((stat) => (
+            <MotionItem key={stat.label} className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-emerald mb-1">
+                {stat.prefix}{stat.value}{stat.suffix}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 md:py-28">
-        <div className="container">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Your End-to-End Grant Pipeline
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              From discovery to application to success tracking — 
-              Grant Spotter handles the heavy lifting.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="group p-6 rounded-xl gradient-card border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-glow"
-              >
-                <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="py-20 md:py-28 bg-card/30 border-y border-border/50">
-        <div className="container">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              How Grant Spotter Works
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Three simple steps to transform your grant journey.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                step: '01',
-                title: 'Define Your Niche',
-                description: 'Complete a quick wizard to identify your builder profile, focus areas, and target ecosystems.',
-              },
-              {
-                step: '02',
-                title: 'Get Matched',
-                description: 'Our AI analyzes your profile against hundreds of grants to surface the best opportunities.',
-              },
-              {
-                step: '03',
-                title: 'Apply & Win',
-                description: 'Use our proposal assistant to craft compelling applications that stand out to reviewers.',
-              },
-            ].map((item, i) => (
-              <div key={item.step} className="relative">
-                <div className="text-7xl font-bold text-primary/10 absolute -top-4 -left-2">
-                  {item.step}
-                </div>
-                <div className="relative pt-8">
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </div>
-                {i < 2 && (
-                  <ArrowRight className="hidden md:block absolute top-12 -right-4 w-8 h-8 text-primary/30" />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <div className="text-sm text-muted-foreground">{stat.label}</div>
+            </MotionItem>
+          ))}
+        </MotionSection>
+      </Frame>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-28">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Find Your Next Grant?
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8">
-              Join thousands of builders who've discovered funding opportunities 
-              they never knew existed.
-            </p>
-            <Link to="/onboarding">
-              <Button variant="hero" size="xl" className="gap-2">
-                Get Started — It's Free
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Frame background="accent">
+        <MotionSection className="text-center max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Ready to find your next grant?
+          </h2>
+          <p className="text-muted-foreground text-lg mb-8">
+            Join builders who've discovered funding opportunities 
+            they never knew existed.
+          </p>
+          <Link to="/onboarding">
+            <Button variant="hero" size="xl" className="gap-2 min-h-[56px]">
+              Get Started — It's Free
+              <ArrowRight className="w-5 h-5" />
+            </Button>
+          </Link>
+        </MotionSection>
+      </Frame>
 
-      {/* Footer */}
-      <footer className="py-8 border-t border-border/50">
-        <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded gradient-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xs">G</span>
-              </div>
-              <span>© 2025 Grant Spotter by Talent Index</span>
-            </div>
-            <div className="flex items-center gap-6">
-              <a href="#" className="hover:text-primary transition-colors">Privacy</a>
-              <a href="#" className="hover:text-primary transition-colors">Terms</a>
-              <a href="#" className="hover:text-primary transition-colors">Contact</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* Frame J - Footer */}
+      <Footer />
     </div>
   );
 };
