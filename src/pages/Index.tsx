@@ -12,7 +12,8 @@ import {
   ChevronDown,
   UserCircle,
   Compass,
-  Rocket
+  Rocket,
+  Quote
 } from 'lucide-react';
 import { HeroFrame, Frame } from '@/components/layout/Frame';
 import { MotionSection, MotionItem, MotionCard } from '@/components/Motion/MotionSection';
@@ -20,6 +21,13 @@ import { TrustMarquee } from '@/components/TrustMarquee';
 import { HeroVisual } from '@/components/HeroVisual';
 import { Footer } from '@/components/Footer';
 import { shouldReduceMotion } from '@/lib/motion';
+
+// Community photos
+import communityPhoto1 from '@/assets/community/builders-1.jpeg';
+import communityPhoto2 from '@/assets/community/builders-2.jpeg';
+import communityPhoto3 from '@/assets/community/builders-3.jpeg';
+import communityPhoto4 from '@/assets/community/builders-4.jpeg';
+import communityPhoto5 from '@/assets/community/builders-5.jpeg';
 
 const Index = () => {
   const reduceMotion = shouldReduceMotion();
@@ -85,6 +93,32 @@ const Index = () => {
     { value: 15, suffix: "+", label: "Ecosystems" },
     { value: 70, suffix: "%", label: "Time Saved" },
     { value: 2.5, suffix: "M+", label: "Matched Funding", prefix: "$" },
+  ];
+
+  const testimonials = [
+    {
+      quote: "Grantees helped me find the perfect grant for my DeFi project. The AI matching was spot on!",
+      name: "Sarah M.",
+      role: "DeFi Developer",
+    },
+    {
+      quote: "I saved weeks of research time. The proposal assistant made my application so much stronger.",
+      name: "James K.",
+      role: "Protocol Engineer",
+    },
+    {
+      quote: "Finally, a tool that understands builders. The eligibility clarity feature is a game-changer.",
+      name: "Amara O.",
+      role: "Full-Stack Developer",
+    },
+  ];
+
+  const communityPhotos = [
+    communityPhoto1,
+    communityPhoto2,
+    communityPhoto3,
+    communityPhoto4,
+    communityPhoto5,
   ];
 
   return (
@@ -230,6 +264,50 @@ const Index = () => {
                 {stat.prefix}{stat.value}{stat.suffix}
               </div>
               <div className="text-sm text-muted-foreground">{stat.label}</div>
+            </MotionItem>
+          ))}
+        </MotionSection>
+      </Frame>
+
+      {/* Community & Social Proof Section */}
+      <Frame 
+        background="subtle"
+        eyebrow="Our Community"
+        title="Builders win faster with clarity"
+        description="Join thousands of builders who've discovered their perfect funding match."
+      >
+        {/* Photo Grid */}
+        <MotionSection className="mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+            {communityPhotos.map((photo, idx) => (
+              <MotionItem key={idx}>
+                <div className={`overflow-hidden rounded-xl ${idx === 1 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+                  <img 
+                    src={photo} 
+                    alt={`Grantees community builders ${idx + 1}`}
+                    className="w-full h-full object-cover aspect-square hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              </MotionItem>
+            ))}
+          </div>
+        </MotionSection>
+
+        {/* Testimonials */}
+        <MotionSection stagger className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((testimonial, idx) => (
+            <MotionItem key={idx}>
+              <div className="p-6 bg-card rounded-xl border border-border/50 h-full flex flex-col">
+                <Quote className="w-8 h-8 text-emerald/30 mb-4" />
+                <p className="text-muted-foreground mb-4 flex-grow italic">
+                  "{testimonial.quote}"
+                </p>
+                <div>
+                  <p className="font-semibold">{testimonial.name}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                </div>
+              </div>
             </MotionItem>
           ))}
         </MotionSection>
