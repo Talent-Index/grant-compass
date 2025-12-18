@@ -2,6 +2,16 @@ export type GrantStatus = 'open' | 'upcoming' | 'closed';
 
 export type GrantType = 'microgrant' | 'dev-grant' | 'dao-funding' | 'accelerator' | 'research' | 'community';
 
+export type OpportunityType = 
+  | 'grant'
+  | 'travel_grant'
+  | 'hackathon'
+  | 'conference'
+  | 'pop_up_city'
+  | 'incubator'
+  | 'accelerator'
+  | 'fellowship';
+
 export type Ecosystem = 
   | 'ethereum' 
   | 'avalanche' 
@@ -14,6 +24,7 @@ export type Ecosystem =
   | 'celo'
   | 'near'
   | 'cosmos'
+  | 'starknet'
   | 'other';
 
 export type BuilderNiche = 
@@ -52,6 +63,47 @@ export interface Grant {
   updatedAt: string;
 }
 
+export interface Opportunity {
+  id: string;
+  name: string;
+  organization: string;
+  description: string;
+  opportunityType: OpportunityType;
+  ecosystem: Ecosystem;
+  focusAreas: BuilderNiche[];
+  status: GrantStatus;
+  
+  // Funding
+  fundingMin?: number;
+  fundingMax?: number;
+  travelCoverage?: 'full' | 'partial' | 'none';
+  equityRequired?: boolean;
+  
+  // Dates
+  deadline?: string | null;
+  eventStartDate?: string;
+  eventEndDate?: string;
+  
+  // Location
+  eventLocation?: string;
+  isRemote?: boolean;
+  visaSupportProvided?: boolean;
+  
+  // Program details
+  residencyDuration?: string;
+  isRecurring?: boolean;
+  frequency?: 'weekly' | 'monthly' | 'quarterly' | 'annual';
+  
+  // Application
+  externalApplicationUrl: string;
+  eligibilityRules?: string[];
+  projectMaturityRequired?: ProjectMaturity[];
+  builderRolesAllowed?: BuilderRole[];
+  
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface BuilderProfile {
   id: string;
   userId: string;
@@ -66,6 +118,7 @@ export interface BuilderProfile {
   primaryLanguages: string[];
   frameworks: string[];
   isOpenSource: boolean;
+  willingToTravel?: boolean;
   bio?: string;
   projectDescription?: string;
   createdAt: string;
@@ -75,6 +128,14 @@ export interface BuilderProfile {
 export interface GrantMatch {
   grant: Grant;
   matchScore: number; // 0-100
+  matchReasons: string[];
+  eligibilityStatus: 'eligible' | 'partial' | 'ineligible';
+  eligibilityNotes: string[];
+}
+
+export interface OpportunityMatch {
+  opportunity: Opportunity;
+  matchScore: number;
   matchReasons: string[];
   eligibilityStatus: 'eligible' | 'partial' | 'ineligible';
   eligibilityNotes: string[];
@@ -91,3 +152,31 @@ export interface GrantApplication {
   createdAt: string;
   updatedAt: string;
 }
+
+// Helper type for opportunity type labels
+export const opportunityTypeLabels: Record<OpportunityType, string> = {
+  grant: 'Grant',
+  travel_grant: 'Travel Grant',
+  hackathon: 'Hackathon',
+  conference: 'Conference',
+  pop_up_city: 'Pop-up City',
+  incubator: 'Incubator',
+  accelerator: 'Accelerator',
+  fellowship: 'Fellowship',
+};
+
+export const ecosystemLabels: Record<Ecosystem, string> = {
+  ethereum: 'Ethereum',
+  avalanche: 'Avalanche',
+  solana: 'Solana',
+  polkadot: 'Polkadot',
+  polygon: 'Polygon',
+  arbitrum: 'Arbitrum',
+  optimism: 'Optimism',
+  base: 'Base',
+  celo: 'Celo',
+  near: 'NEAR',
+  cosmos: 'Cosmos',
+  starknet: 'Starknet',
+  other: 'Other',
+};
