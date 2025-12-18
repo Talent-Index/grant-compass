@@ -199,6 +199,7 @@ export const ecosystemLabels: Record<Ecosystem, string> = {
   celo: 'Celo',
   near: 'NEAR',
   cosmos: 'Cosmos',
+  starknet: 'Starknet',
   other: 'Other',
 };
 

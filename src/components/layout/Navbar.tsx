@@ -1,4 +1,4 @@
-// Navigation bar component
+// SheFi-inspired minimal navigation
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,33 +7,50 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { href: '/grants', label: 'Explore' },
-  { href: '/dashboard', label: 'Dashboard' },
+  { href: '/grants', label: 'Discover' },
+  { href: '/opportunities', label: 'Opportunities' },
+  { href: '/#how-it-works', label: 'How it works' },
+  { href: '/#community', label: 'Success stories' },
 ];
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    if (path.startsWith('/#')) return false;
+    return location.pathname === path;
+  };
+
+  const handleNavClick = (href: string) => {
+    setMobileMenuOpen(false);
+    if (href.startsWith('/#')) {
+      const id = href.replace('/#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/30">
       <nav className="container h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <Logo size="md" />
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Nav - centered */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               to={link.href}
+              onClick={() => handleNavClick(link.href)}
               className={cn(
-                'text-sm font-medium transition-colors hover:text-emerald',
-                isActive(link.href) ? 'text-emerald' : 'text-muted-foreground'
+                'text-sm font-medium transition-colors hover:text-foreground',
+                isActive(link.href) ? 'text-foreground' : 'text-muted-foreground'
               )}
             >
               {link.label}
@@ -44,10 +61,14 @@ export function Navbar() {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Link to="/auth">
-            <Button variant="ghost" className="min-h-[44px]">Sign In</Button>
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+              Sign in
+            </Button>
           </Link>
           <Link to="/onboarding">
-            <Button variant="hero" className="min-h-[44px]">Get Started</Button>
+            <Button variant="default" size="sm" className="bg-emerald hover:bg-emerald/90 text-emerald-foreground">
+              Get matched
+            </Button>
           </Link>
         </div>
 
@@ -57,38 +78,38 @@ export function Navbar() {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Clean drawer */}
       <div className={cn(
-        'md:hidden overflow-hidden transition-all duration-300 bg-background border-b border-border/50',
-        mobileMenuOpen ? 'max-h-80' : 'max-h-0'
+        'md:hidden fixed inset-x-0 top-16 bg-background border-b border-border/30 transition-all duration-300 ease-out',
+        mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
       )}>
-        <div className="container py-4 space-y-4">
+        <div className="container py-6 space-y-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               to={link.href}
               className={cn(
-                'block py-2 text-sm font-medium transition-colors',
-                isActive(link.href) ? 'text-emerald' : 'text-muted-foreground'
+                'block py-3 text-base font-medium transition-colors',
+                isActive(link.href) ? 'text-foreground' : 'text-muted-foreground'
               )}
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => handleNavClick(link.href)}
             >
               {link.label}
             </Link>
           ))}
-          <div className="pt-4 border-t border-border/50 space-y-3">
-            <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="outline" size="full" className="min-h-[44px]">
-                Sign In
+          <div className="pt-6 space-y-3">
+            <Link to="/auth" onClick={() => setMobileMenuOpen(false)} className="block">
+              <Button variant="outline" className="w-full min-h-[44px]">
+                Sign in
               </Button>
             </Link>
-            <Link to="/onboarding" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="hero" size="full" className="min-h-[44px]">
-                Get Started
+            <Link to="/onboarding" onClick={() => setMobileMenuOpen(false)} className="block">
+              <Button className="w-full min-h-[44px] bg-emerald hover:bg-emerald/90 text-emerald-foreground">
+                Get matched
               </Button>
             </Link>
           </div>
