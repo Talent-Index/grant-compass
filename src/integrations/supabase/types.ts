@@ -14,16 +14,174 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      analytics_events: {
+        Row: {
+          created_at: string
+          event_data: Json | null
+          event_name: string
+          id: string
+          page_name: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_data?: Json | null
+          event_name: string
+          id?: string
+          page_name?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_data?: Json | null
+          event_name?: string
+          id?: string
+          page_name?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      grants: {
+        Row: {
+          application_status: string
+          application_url: string
+          closing_soon: boolean | null
+          created_at: string
+          description: string | null
+          ecosystem: string
+          eligibility: string[] | null
+          funding_max: number | null
+          funding_min: number | null
+          grant_type: string
+          id: string
+          is_new: boolean | null
+          is_updated: boolean | null
+          last_verified_at: string
+          name: string
+          niche_category: string
+          updated_at: string
+          visible: boolean | null
+        }
+        Insert: {
+          application_status: string
+          application_url: string
+          closing_soon?: boolean | null
+          created_at?: string
+          description?: string | null
+          ecosystem: string
+          eligibility?: string[] | null
+          funding_max?: number | null
+          funding_min?: number | null
+          grant_type: string
+          id?: string
+          is_new?: boolean | null
+          is_updated?: boolean | null
+          last_verified_at?: string
+          name: string
+          niche_category: string
+          updated_at?: string
+          visible?: boolean | null
+        }
+        Update: {
+          application_status?: string
+          application_url?: string
+          closing_soon?: boolean | null
+          created_at?: string
+          description?: string | null
+          ecosystem?: string
+          eligibility?: string[] | null
+          funding_max?: number | null
+          funding_min?: number | null
+          grant_type?: string
+          id?: string
+          is_new?: boolean | null
+          is_updated?: boolean | null
+          last_verified_at?: string
+          name?: string
+          niche_category?: string
+          updated_at?: string
+          visible?: boolean | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          is_premium: boolean
+          premium_unlocked_at: string | null
+          signup_date: string
+          signup_method: string
+          stake_tx_hash: string | null
+          updated_at: string
+          user_id: string
+          wallet_address: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_premium?: boolean
+          premium_unlocked_at?: string | null
+          signup_date?: string
+          signup_method: string
+          stake_tx_hash?: string | null
+          updated_at?: string
+          user_id: string
+          wallet_address?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_premium?: boolean
+          premium_unlocked_at?: string | null
+          signup_date?: string
+          signup_method?: string
+          stake_tx_hash?: string | null
+          updated_at?: string
+          user_id?: string
+          wallet_address?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +308,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
