@@ -41,6 +41,36 @@ export type Database = {
         }
         Relationships: []
       }
+      credit_transactions: {
+        Row: {
+          created_at: string
+          credits: number
+          description: string | null
+          id: string
+          tx_hash: string | null
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          credits: number
+          description?: string | null
+          id?: string
+          tx_hash?: string | null
+          type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          credits?: number
+          description?: string | null
+          id?: string
+          tx_hash?: string | null
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       grants: {
         Row: {
           application_status: string
@@ -107,10 +137,12 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string
+          credits_balance: number
           email: string | null
           id: string
           is_premium: boolean
           premium_unlocked_at: string | null
+          referral_code: string | null
           signup_date: string
           signup_method: string
           stake_tx_hash: string | null
@@ -120,10 +152,12 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          credits_balance?: number
           email?: string | null
           id?: string
           is_premium?: boolean
           premium_unlocked_at?: string | null
+          referral_code?: string | null
           signup_date?: string
           signup_method: string
           stake_tx_hash?: string | null
@@ -133,16 +167,42 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          credits_balance?: number
           email?: string | null
           id?: string
           is_premium?: boolean
           premium_unlocked_at?: string | null
+          referral_code?: string | null
           signup_date?: string
           signup_method?: string
           stake_tx_hash?: string | null
           updated_at?: string
           user_id?: string
           wallet_address?: string | null
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          created_at: string
+          credits_awarded: number
+          id: string
+          referred_user_id: string
+          referrer_id: string
+        }
+        Insert: {
+          created_at?: string
+          credits_awarded?: number
+          id?: string
+          referred_user_id: string
+          referrer_id: string
+        }
+        Update: {
+          created_at?: string
+          credits_awarded?: number
+          id?: string
+          referred_user_id?: string
+          referrer_id?: string
         }
         Relationships: []
       }
