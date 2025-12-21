@@ -6,19 +6,19 @@ import { Navbar } from '@/components/layout/Navbar';
 import { GrantCard } from '@/components/grants/GrantCard';
 import { Frame } from '@/components/layout/Frame';
 import { MotionSection, MotionItem } from '@/components/Motion/MotionSection';
+import { CreditPanel } from '@/components/credits/CreditPanel';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { mockGrants } from '@/data/mockGrants';
 import { GrantMatch } from '@/types/grant';
-import { fadeUp, shouldReduceMotion } from '@/lib/motion';
+import { shouldReduceMotion } from '@/lib/motion';
 import { 
   Sparkles, 
   Target, 
   Clock, 
   TrendingUp, 
   ArrowRight,
-  ArrowLeft,
   Bookmark,
   FileText,
   Settings,
@@ -266,8 +266,8 @@ export default function Dashboard() {
             </div>
           </MotionSection>
         </div>
-
-        <div className="container">
+        <div className="container grid lg:grid-cols-[1fr_320px] gap-8">
+          <div>
           {/* View Tabs */}
           <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
             <Button
@@ -370,6 +370,14 @@ export default function Dashboard() {
               </motion.div>
             )}
           </AnimatePresence>
+          </div>
+          
+          {/* Credit Panel Sidebar */}
+          <div className="hidden lg:block">
+            <div className="sticky top-24">
+              <CreditPanel />
+            </div>
+          </div>
         </div>
       </main>
     </div>

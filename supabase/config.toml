@@ -2,3 +2,12 @@ project_id = "ycgytnqituzshplxgzhb"
 
 [functions.send-welcome-email]
 verify_jwt = false
+
+[functions.credits-purchase]
+verify_jwt = true
+
+[functions.credits-consume]
+verify_jwt = true
+
+[functions.credits-balance]
+verify_jwt = true

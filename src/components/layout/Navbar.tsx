@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/Logo';
+import { CreditBadge } from '@/components/credits/CreditBadge';
+import { useAuth } from '@/contexts/AuthContext';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -16,6 +18,7 @@ const navLinks = [
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   const isActive = (path: string) => {
     if (path.startsWith('/#')) return false;
@@ -60,16 +63,37 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <Link to="/auth">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-              Sign in
-            </Button>
-          </Link>
-          <Link to="/onboarding">
-            <Button variant="default" size="sm" className="bg-emerald hover:bg-emerald/90 text-emerald-foreground">
-              Get matched
-            </Button>
-          </Link>
+          {user ? (
+            <>
+              <CreditBadge />
+              <Link to="/dashboard">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                  Dashboard
+                </Button>
+              </Link>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => signOut()}
+                className="text-muted-foreground"
+              >
+                Sign out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link to="/auth">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                  Sign in
+                </Button>
+              </Link>
+              <Link to="/onboarding">
+                <Button variant="default" size="sm" className="bg-emerald hover:bg-emerald/90 text-emerald-foreground">
+                  Get matched
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
